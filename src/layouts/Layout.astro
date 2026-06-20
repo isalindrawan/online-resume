@@ -1,0 +1,84 @@
+---
+const {
+	title = 'Faisal Indrawan — Fullstack Developer',
+	description = 'Fullstack web and mobile developer building reliable digital products for real business operations.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#131313" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<script is:inline>
+			const savedTheme = localStorage.getItem('theme');
+			const dark = savedTheme ? savedTheme === 'dark' : true;
+			document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+		</script>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--paper: #f9f9f9;
+		--ink: #131313;
+		--muted: #515151;
+		--soft: #ff4d00;
+		--panel: rgba(249, 249, 249, 0.72);
+		--line: rgba(19, 19, 19, 0.18);
+		--accent: #ff4000;
+		--shadow: 0 30px 90px rgba(19, 19, 19, 0.22);
+		color-scheme: light;
+		font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		background: var(--paper);
+		color: var(--ink);
+		scroll-behavior: smooth;
+		scroll-padding-top: 6rem;
+	}
+
+	:root[data-theme='dark'] {
+		--paper: #131313;
+		--ink: #e5e5e5;
+		--muted: #9b9b9b;
+		--soft: #ff4d00;
+		--panel: rgba(19, 19, 19, 0.72);
+		--line: rgba(229, 229, 229, 0.17);
+		--accent: #ff4000;
+		--shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+		color-scheme: dark;
+	}
+
+	* { box-sizing: border-box; }
+	html, body { margin: 0; min-width: 320px; }
+	body {
+		min-height: 100vh;
+		overflow-x: hidden;
+		background:
+			linear-gradient(var(--line) 1px, transparent 1px),
+			linear-gradient(90deg, var(--line) 1px, transparent 1px),
+			var(--paper);
+		background-size: 72px 72px;
+		background-attachment: fixed;
+	}
+	a { color: inherit; }
+	button, a { -webkit-tap-highlight-color: transparent; }
+	::selection { color: #f9f9f9; background: #ff4d00; }
+	:root[data-theme='dark'] ::selection { color: #e5e5e5; }
+
+	@media (prefers-reduced-motion: reduce) {
+		:root { scroll-behavior: auto; }
+		*, *::before, *::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			scroll-behavior: auto !important;
+		}
+	}
+</style>
