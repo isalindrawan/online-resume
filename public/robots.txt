@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://isalindrawan.netlify.app/sitemap-index.xml

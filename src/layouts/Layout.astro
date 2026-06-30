@@ -4,6 +4,8 @@ import ThemeToggle from '../components/ThemeToggle.astro';
 import LangToggle from '../components/LangToggle.astro';
 import type { Lang } from '../data/types';
 
+const SITE = 'https://isalindrawan.netlify.app';
+
 interface Props {
   lang: Lang;
   title: string;
@@ -13,6 +15,20 @@ interface Props {
 }
 
 const { lang, title, description, socials = [], theme } = Astro.props;
+const path = `/${lang}`;
+const canonical = `${SITE}${path}`;
+const ogImage = `${SITE}/avatar.svg`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Faisal Indrawan',
+  jobTitle: 'Fullstack Web & Mobile Developer',
+  url: SITE,
+  image: ogImage,
+  email: 'mailto:isalindrawan@outlook.com',
+  address: { '@type': 'PostalAddress', addressLocality: 'Surabaya', addressCountry: 'ID' },
+  sameAs: socials.map((s) => s.url),
+};
 ---
 
 <!doctype html>
@@ -24,9 +40,30 @@ const { lang, title, description, socials = [], theme } = Astro.props;
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0a0e14" />
+    <meta name="theme-color" content="#0a0e14" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)" />
     <title>{title}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="id" href={`${SITE}/id`} />
+    <link rel="alternate" hreflang="en" href={`${SITE}/en`} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE}/id`} />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:locale" content={lang === 'id' ? 'id_ID' : 'en_US'} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Faisal Indrawan" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
     {/* no-flash theme: set class before paint */}
     <script is:inline>
       (function () {
@@ -46,15 +83,15 @@ const { lang, title, description, socials = [], theme } = Astro.props;
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-3 focus:py-2 focus:bg-[var(--panel)] focus:border focus:border-[var(--border)] focus:rounded">skip to content</a>
     <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-[color-mix(in_srgb,var(--bg)_70%,transparent)] border-b border-[var(--border)]">
-      <div class="max-w-5xl mx-auto px-4 h-12 flex items-center justify-between text-xs">
+      <div class="max-w-5xl mx-auto px-4 min-h-12 py-2 flex flex-wrap items-center justify-between gap-y-2 text-xs">
         <a href={`/${lang}`} class="prompt group">
           <span class="opacity-60">~/</span><span class="group-hover:text-[var(--accent)]">faisal</span>
         </a>
-        <nav class="flex items-center gap-4">
-          <a href={`/${lang}#experience`} class="muted hover:text-[var(--accent)] transition-colors hidden sm:inline">experience</a>
-          <a href={`/${lang}#portfolio`} class="muted hover:text-[var(--accent)] transition-colors hidden sm:inline">portfolio</a>
-          <a href={`/${lang}#skills`} class="muted hover:text-[var(--accent)] transition-colors hidden sm:inline">skills</a>
-          <a href={`/${lang}#education`} class="muted hover:text-[var(--accent)] transition-colors hidden sm:inline">education</a>
+        <nav class="flex items-center gap-2 sm:gap-4" aria-label="section navigation">
+          <a href={`/${lang}#experience`} class="muted hover:text-[var(--accent)] transition-colors">experience</a>
+          <a href={`/${lang}#portfolio`} class="muted hover:text-[var(--accent)] transition-colors">portfolio</a>
+          <a href={`/${lang}#skills`} class="muted hover:text-[var(--accent)] transition-colors">skills</a>
+          <a href={`/${lang}#education`} class="muted hover:text-[var(--accent)] transition-colors">education</a>
           <LangToggle lang={lang} />
           <ThemeToggle t={theme} />
         </nav>
