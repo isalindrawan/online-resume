@@ -1,6 +1,7 @@
 ---
-// Terminal-themed particle network. Vanilla canvas, no deps.
-// Fixed full-screen behind content. Respects prefers-reduced-motion.
+// Terminal-themed floating code snippets. Vanilla canvas, no deps.
+// Lines of pseudo-code drift upward at very low opacity behind content.
+// Respects prefers-reduced-motion (static frame).
 ---
 <canvas id="particles" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
 <script is:inline>
@@ -13,17 +14,48 @@
 
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var w = 0, h = 0;
-    var particles = [];
-    var accent = '#00ff9c';
-    var accentDim = '#00cc7d';
 
-    function readAccent() {
+    var SNIPPETS = [
+      'const app = await build()',
+      'pnpm build --verbose',
+      'export default function Hero() {}',
+      'if (shipped) return celebrate()',
+      'git commit -m "ship it"',
+      'async function deploy() { ... }',
+      '> whoami',
+      'return { ok: true, data }',
+      'const [lang, setLang] = useState()',
+      'npm run dev --host',
+      '// TODO: make it delightful',
+      'try { await release() } catch (e) {}',
+      'interface Profile { name: string }',
+      'const user = await fetch(url)',
+      'class Developer extends Human {}',
+      'while (curious) keepLearning()',
+      'export const stack = ["react", "laravel"]',
+      'docker compose up -d',
+      'SELECT * FROM experiences;',
+      'pnpm install --frozen-lockfile',
+      'function ship(feature) { return done }',
+      'import Layout from "./Layout.astro"',
+      'const result = array.map(x => x.id)',
+      'curl https://isalindrawan.dev',
+      '// ponies: simplest path to done',
+      'git push origin main'
+    ];
+
+    var lines = [];
+    var accent = '#00ff9c';
+    var muted = '#5c6773';
+    var fontSize = 13;
+
+    function readTheme() {
       try {
         var cs = getComputedStyle(document.documentElement);
         var a = cs.getPropertyValue('--accent').trim();
         var m = cs.getPropertyValue('--muted').trim();
         if (a) accent = a;
-        if (m) accentDim = m;
+        if (m) muted = m;
       } catch (e) {}
     }
 
@@ -35,80 +67,56 @@
       canvas.style.width = w + 'px';
       canvas.style.height = h + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.font = fontSize + "px 'JetBrains Mono', ui-monospace, monospace";
+      ctx.textBaseline = 'top';
     }
 
-    function density() {
-      var base = Math.floor((w * h) / 26000);
-      return Math.max(28, Math.min(80, base));
+    function rand(a, b) { return a + Math.random() * (b - a); }
+
+    function spawn(initial) {
+      return {
+        text: SNIPPETS[Math.floor(Math.random() * SNIPPETS.length)],
+        x: rand(0, Math.max(1, w - 320)),
+        y: initial ? rand(0, h) : h + rand(20, 120),
+        speed: rand(0.12, 0.38),
+        alpha: rand(0.05, 0.13),
+        tint: Math.random() < 0.18 ? 'accent' : 'muted'
+      };
     }
 
     function seed() {
-      var n = density();
-      particles = [];
-      for (var i = 0; i < n; i++) {
-        particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
-          r: Math.random() * 1.6 + 0.6,
-        });
-      }
+      var n = Math.max(10, Math.min(20, Math.floor(w / 90)));
+      lines = [];
+      for (var i = 0; i < n; i++) lines.push(spawn(true));
     }
 
-    function draw(alpha) {
+    function draw() {
       ctx.clearRect(0, 0, w, h);
-      var max = 130;
-      // links
-      for (var i = 0; i < particles.length; i++) {
-        var a = particles[i];
-        for (var j = i + 1; j < particles.length; j++) {
-          var b = particles[j];
-          var dx = a.x - b.x, dy = a.y - b.y;
-          var d2 = dx * dx + dy * dy;
-          if (d2 < max * max) {
-            var d = Math.sqrt(d2);
-            var o = (1 - d / max) * 0.22 * alpha;
-            ctx.strokeStyle = accent;
-            ctx.globalAlpha = o;
-            ctx.lineWidth = 0.6;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      }
-      // nodes
-      ctx.globalAlpha = 0.55 * alpha;
-      ctx.fillStyle = accent;
-      for (var k = 0; k < particles.length; k++) {
-        var p = particles[k];
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
+      for (var i = 0; i < lines.length; i++) {
+        var l = lines[i];
+        ctx.globalAlpha = l.alpha;
+        ctx.fillStyle = l.tint === 'accent' ? accent : muted;
+        ctx.fillText(l.text, l.x, l.y);
       }
       ctx.globalAlpha = 1;
     }
 
     function step() {
-      for (var i = 0; i < particles.length; i++) {
-        var p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < -20) p.x = w + 20;
-        if (p.x > w + 20) p.x = -20;
-        if (p.y < -20) p.y = h + 20;
-        if (p.y > h + 20) p.y = -20;
+      for (var i = 0; i < lines.length; i++) {
+        var l = lines[i];
+        l.y -= l.speed;
+        if (l.y < -20) {
+          lines[i] = spawn(false);
+        }
       }
-      draw(1);
+      draw();
       raf = requestAnimationFrame(step);
     }
 
     var raf = null;
     function start() {
       if (raf) cancelAnimationFrame(raf);
-      if (reduce) { draw(0.7); return; }
+      if (reduce) { draw(); return; }
       step();
     }
 
@@ -116,7 +124,7 @@
     function onResize() {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
-        readAccent();
+        readTheme();
         size();
         seed();
         start();
@@ -124,7 +132,7 @@
     }
 
     function init() {
-      readAccent();
+      readTheme();
       size();
       seed();
       start();
