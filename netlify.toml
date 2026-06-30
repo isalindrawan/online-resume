@@ -4,7 +4,6 @@
 
 [build.environment]
   NODE_VERSION = "22"
-  PNPM_VERSION = "9"
 
 # Root redirects to /id (default locale) — Astro emits a meta-refresh
 # index.html at /, this is a belt-and-suspenders 302.
