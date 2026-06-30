@@ -1,0 +1,140 @@
+---
+// Terminal-themed particle network. Vanilla canvas, no deps.
+// Fixed full-screen behind content. Respects prefers-reduced-motion.
+---
+<canvas id="particles" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
+<script is:inline>
+  (function () {
+    var canvas = document.getElementById('particles');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = 0, h = 0;
+    var particles = [];
+    var accent = '#00ff9c';
+    var accentDim = '#00cc7d';
+
+    function readAccent() {
+      try {
+        var cs = getComputedStyle(document.documentElement);
+        var a = cs.getPropertyValue('--accent').trim();
+        var m = cs.getPropertyValue('--muted').trim();
+        if (a) accent = a;
+        if (m) accentDim = m;
+      } catch (e) {}
+    }
+
+    function size() {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function density() {
+      var base = Math.floor((w * h) / 26000);
+      return Math.max(28, Math.min(80, base));
+    }
+
+    function seed() {
+      var n = density();
+      particles = [];
+      for (var i = 0; i < n; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          r: Math.random() * 1.6 + 0.6,
+        });
+      }
+    }
+
+    function draw(alpha) {
+      ctx.clearRect(0, 0, w, h);
+      var max = 130;
+      // links
+      for (var i = 0; i < particles.length; i++) {
+        var a = particles[i];
+        for (var j = i + 1; j < particles.length; j++) {
+          var b = particles[j];
+          var dx = a.x - b.x, dy = a.y - b.y;
+          var d2 = dx * dx + dy * dy;
+          if (d2 < max * max) {
+            var d = Math.sqrt(d2);
+            var o = (1 - d / max) * 0.22 * alpha;
+            ctx.strokeStyle = accent;
+            ctx.globalAlpha = o;
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      // nodes
+      ctx.globalAlpha = 0.55 * alpha;
+      ctx.fillStyle = accent;
+      for (var k = 0; k < particles.length; k++) {
+        var p = particles[k];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function step() {
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < -20) p.x = w + 20;
+        if (p.x > w + 20) p.x = -20;
+        if (p.y < -20) p.y = h + 20;
+        if (p.y > h + 20) p.y = -20;
+      }
+      draw(1);
+      raf = requestAnimationFrame(step);
+    }
+
+    var raf = null;
+    function start() {
+      if (raf) cancelAnimationFrame(raf);
+      if (reduce) { draw(0.7); return; }
+      step();
+    }
+
+    var resizeTimer;
+    function onResize() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        readAccent();
+        size();
+        seed();
+        start();
+      }, 150);
+    }
+
+    function init() {
+      readAccent();
+      size();
+      seed();
+      start();
+      window.addEventListener('resize', onResize, { passive: true });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

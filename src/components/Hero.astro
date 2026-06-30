@@ -1,0 +1,75 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Profile, Summary, Social, Lang } from '../data/types';
+import SocialButton from './SocialButton.astro';
+
+interface Props {
+  profile: Profile;
+  summary: Summary;
+  socials: Social[];
+  lang: Lang;
+  t: {
+    prompt: string;
+    available: string;
+    cta: string;
+    scroll: string;
+    socials: string;
+  };
+}
+
+const { profile, summary, socials, lang, t } = Astro.props;
+---
+
+<section id="hero" class="relative min-h-screen flex items-center px-4 pt-12 overflow-hidden">
+  <!-- parallax bg layers -->
+  <div data-parallax data-parallax-speed="-0.15" aria-hidden="true" class="pointer-events-none absolute inset-0">
+    <div class="absolute top-1/4 -right-20 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-20" style="background: radial-gradient(circle, var(--accent), transparent 65%);"></div>
+    <div class="absolute bottom-1/4 -left-20 w-[24rem] h-[24rem] rounded-full blur-3xl opacity-10" style="background: radial-gradient(circle, var(--cyan), transparent 65%);"></div>
+  </div>
+
+  <div data-parallax data-parallax-speed="0.04" aria-hidden="true" class="pointer-events-none absolute inset-0 select-none">
+    <span class="absolute top-24 right-8 text-[8rem] font-bold text-[var(--accent)] opacity-[0.05] leading-none">{`{ }`}</span>
+  </div>
+
+  <div class="relative z-10 max-w-5xl mx-auto w-full grid md:grid-cols-[auto_1fr] gap-8 md:gap-12 items-center">
+    <!-- avatar slot -->
+    <div data-reveal class="relative mx-auto md:mx-0">
+      <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-md border border-[var(--border)] overflow-hidden glow">
+        <img src={profile.avatar} alt={profile.name} width="192" height="192" class="w-full h-full object-cover" loading="eager" />
+      </div>
+      <span class="absolute -bottom-2 -right-2 px-2 py-0.5 text-[10px] rounded border border-[var(--accent)] text-[var(--accent)] bg-[var(--bg)]">{profile.available ? t.available : ''}</span>
+    </div>
+
+    <div data-reveal>
+      <div class="text-sm muted mb-1">
+        <span class="prompt">{t.prompt}</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-bold leading-tight">{profile.name}</h1>
+      <p class="text-[var(--cyan)] text-base sm:text-lg mt-1">{profile.title}</p>
+      <p class="muted text-sm mt-1 flex items-center gap-1 flex-wrap">
+        <Icon name="lucide:map-pin" size={13} />
+        <span>{profile.location}</span>
+        <span class="mx-1">·</span>
+        <a href={`mailto:${profile.email}`} class="hover:text-[var(--accent)] transition-colors">{profile.email}</a>
+      </p>
+
+      <p class="mt-5 text-sm sm:text-base max-w-2xl leading-relaxed">
+        <span class="accent-text font-bold">{summary.headline}</span>
+        <span class="muted"> {summary.body}</span>
+      </p>
+
+      <div class="mt-7 flex flex-wrap items-center gap-3">
+        <a href={`/${lang}#portfolio`} class="inline-flex items-center gap-2 px-4 py-2 rounded border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[var(--bg)] transition-colors text-sm font-bold">
+          <Icon name="lucide:arrow-down" size={15} />
+          {t.cta}
+        </a>
+        <SocialButton socials={socials} t={{ socials: t.socials }} />
+      </div>
+    </div>
+  </div>
+
+  <a href={`/${lang}#experience`} class="absolute bottom-6 left-1/2 -translate-x-1/2 muted text-xs flex flex-col items-center gap-1 hover:text-[var(--accent)] transition-colors" aria-label={t.scroll}>
+    <span>{t.scroll}</span>
+    <Icon name="lucide:chevron-down" size={16} class="animate-bounce" />
+  </a>
+</section>

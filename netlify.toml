@@ -1,0 +1,26 @@
+[build]
+  command = "pnpm build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PNPM_VERSION = "9"
+
+# Root redirects to /id (default locale) — Astro emits a meta-refresh
+# index.html at /, this is a belt-and-suspenders 302.
+[[redirects]]
+  from = "/"
+  to = "/id"
+  status = 302
+  force = false
+
+# Cache static assets aggressively
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

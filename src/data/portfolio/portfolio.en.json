@@ -1,0 +1,178 @@
+[
+  {
+    "category": "React Native",
+    "projects": [
+      {
+        "title": "Kinerja",
+        "description": "Cloud HR app for biometric attendance, loans, reimbursements, leave, approvals, and workforce analytics.",
+        "platform": [
+          {
+            "title": "Google Play",
+            "url": "https://play.google.com/store/apps/details?id=app.kinerja.employee"
+          }
+        ]
+      },
+      {
+        "title": "Kinerja Admin",
+        "description": "Mobile HR operations app for reviewing employee requests and managing approvals away from the desk.",
+        "platform": [
+          {
+            "title": "Google Play",
+            "url": "https://play.google.com/store/apps/details?id=app.kinerja.employer"
+          }
+        ]
+      },
+      {
+        "title": "Bie Hin Circlo",
+        "description": "Premium tailoring experience translated from Figma into an intuitive app for measurements, appointments, orders, rewards, and payments.",
+        "platform": [
+          {
+            "title": "React Native",
+            "url": null,
+            "status": "Pending submission"
+          }
+        ]
+      },
+      {
+        "title": "Lintas 7 Benua",
+        "description": "FMCG dealer app that makes product discovery and customer inquiries easier for an international trading company.",
+        "platform": [
+          {
+            "title": "Google Play",
+            "url": "https://play.google.com/store/apps/details?id=com.l7be.dealer"
+          }
+        ]
+      },
+      {
+        "title": "Samando Dealers",
+        "description": "Dealer app for browsing engines, spare parts, and agricultural or marine equipment from a trusted distributor.",
+        "platform": [
+          {
+            "title": "Google Play",
+            "url": "https://play.google.com/store/apps/details?id=id.samando.dealers"
+          }
+        ]
+      },
+      {
+        "title": "Lookman Dajaja Driver",
+        "description": "Two expedition driver apps supporting intercity and local deliveries through trip monitoring, travel records, and operational tasks.",
+        "platform": [
+          {
+            "title": "Intercity app",
+            "url": "https://play.google.com/store/apps/details?id=net.lookmandjaja.driver.luar_kota"
+          },
+          {
+            "title": "Local delivery app",
+            "url": "https://play.google.com/store/apps/details?id=net.lookmandjaja.driver.driver_dalam_kota"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Progressive Web Apps",
+    "projects": [
+      {
+        "title": "Anda Wellness",
+        "description": "Responsive booking PWA that turns a polished Figma design into an easy path to spa and home-call treatments.",
+        "platform": [
+          {
+            "title": "Visit website",
+            "url": "https://my.andawellness.co.id/home"
+          }
+        ]
+      },
+      {
+        "title": "Cek Mantap",
+        "description": "Inspection tool for building checklists, running standard operating procedure audits, and producing reports.",
+        "platform": [
+          {
+            "title": "Progressive Web App",
+            "url": null
+          }
+        ]
+      },
+      {
+        "title": "Fieldmate",
+        "description": "Installable field-team app for attendance, schedules, customer visits, orders, custom forms, and stock checks.",
+        "platform": [
+          {
+            "title": "Visit website",
+            "url": "https://web.fieldmate.id/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Native Android",
+    "projects": [
+      {
+        "title": "NVBuilt",
+        "description": "Construction monitoring app for tracking property development work and progress in the field.",
+        "platform": [
+          {
+            "title": "Native Android",
+            "url": null
+          }
+        ]
+      },
+      {
+        "title": "NVCRM",
+        "description": "Sales app for recording prospective buyers and supporting property marketing workflows.",
+        "platform": [
+          {
+            "title": "Native Android",
+            "url": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Business Systems",
+    "projects": [
+      {
+        "title": "Ken CRM",
+        "description": "Property developer CRM that organizes customer, sales, and operational processes in one system.",
+        "platform": [
+          {
+            "title": "Web Application",
+            "url": null
+          }
+        ]
+      },
+      {
+        "title": "Bintang Plasma",
+        "description": "ERP platform for the day-to-day operations of an electronics distributor.",
+        "platform": [
+          {
+            "title": "Web Application",
+            "url": null
+          }
+        ]
+      },
+      {
+        "title": "Wahana Pest Control",
+        "description": "Service operations system for coordinating customer work and internal delivery processes.",
+        "platform": [
+          {
+            "title": "Web Application",
+            "url": null
+          }
+        ]
+      },
+      {
+        "title": "Radz Exinterior",
+        "description": "ERP system designed around the operational needs of a contractor business.",
+        "platform": [
+          {
+            "title": "Web Application",
+            "url": null
+          }
+        ]
+      }
+    ]
+  }
+]
+

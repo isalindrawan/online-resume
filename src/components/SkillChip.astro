@@ -1,0 +1,9 @@
+---
+import { Icon } from 'astro-icon/components';
+interface Props { name: string; icon: string }
+const { name, icon } = Astro.props;
+---
+<span class="chip">
+  <Icon name={icon} size={14} />
+  <span>{name}</span>
+</span>

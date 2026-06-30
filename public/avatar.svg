@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#0a0e14"/>
+  <rect x="1" y="1" width="198" height="198" fill="none" stroke="#00ff9c" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="100" y="118" font-family="monospace" font-size="84" font-weight="700" fill="#00ff9c" text-anchor="middle">FI</text>
+  <text x="100" y="160" font-family="monospace" font-size="14" fill="#5c6773" text-anchor="middle">// slot foto</text>
+</svg>

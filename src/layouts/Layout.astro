@@ -1,0 +1,116 @@
+---
+import '../styles/global.css';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import LangToggle from '../components/LangToggle.astro';
+import type { Lang } from '../data/types';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  socials?: { label: string; url: string }[];
+  theme: { toggle: string; dark: string; light: string };
+}
+
+const { lang, title, description, socials = [], theme } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang} class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a0e14" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    {/* no-flash theme: set class before paint */}
+    <script is:inline>
+      (function () {
+        try {
+          var s = localStorage.getItem('theme');
+          var t = s === 'light' || s === 'dark' ? s : 'dark';
+          var el = document.documentElement;
+          el.classList.remove('dark', 'light');
+          el.classList.add(t);
+        } catch (e) {}
+      })();
+    </script>
+    {socials.map((s) => (
+      <link rel="me" href={s.url} />
+    ))}
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-3 focus:py-2 focus:bg-[var(--panel)] focus:border focus:border-[var(--border)] focus:rounded">skip to content</a>
+    <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-[color-mix(in_srgb,var(--bg)_70%,transparent)] border-b border-[var(--border)]">
+      <div class="max-w-5xl mx-auto px-4 h-12 flex items-center justify-between text-xs">
+        <a href={`/${lang}`} class="prompt group">
+          <span class="opacity-60">~/</span><span class="group-hover:text-[var(--accent)]">faisal</span>
+        </a>
+        <nav class="flex items-center gap-4">
+          <a href={`/${lang}#experience`} class="muted hover:text-[var(--accent)] transition-colors hidden sm:inline">experience</a>
+          <a href={`/${lang}#portfolio`} class="muted hover:text-[var(--accent)] transition-colors hidden sm:inline">portfolio</a>
+          <a href={`/${lang}#skills`} class="muted hover:text-[var(--accent)] transition-colors hidden sm:inline">skills</a>
+          <a href={`/${lang}#education`} class="muted hover:text-[var(--accent)] transition-colors hidden sm:inline">education</a>
+          <LangToggle lang={lang} />
+          <ThemeToggle t={theme} />
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="relative z-10 pt-12">
+      <slot />
+    </main>
+
+    <script>
+      // Parallax + reveal — vanilla, reduced-motion aware
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const parallaxEls = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax-speed]'));
+      const revealEls = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+
+      if (!reduce && revealEls.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                (e.target as HTMLElement).classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -10% 0px', threshold: 0.08 }
+        );
+        revealEls.forEach((el) => io.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add('is-visible'));
+      }
+
+      if (!reduce && parallaxEls.length) {
+        let ticking = false;
+        const update = () => {
+          const vh = window.innerHeight;
+          for (const el of parallaxEls) {
+            const speed = parseFloat(el.dataset.parallaxSpeed || '0');
+            const rect = el.getBoundingClientRect();
+            const center = rect.top + rect.height / 2;
+            const offset = (center - vh / 2) * speed;
+            el.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+          }
+          ticking = false;
+        };
+        const onScroll = () => {
+          if (!ticking) {
+            window.requestAnimationFrame(update);
+            ticking = true;
+          }
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        update();
+      }
+    </script>
+  </body>
+</html>

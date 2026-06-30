@@ -1,0 +1,77 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import ExperienceCard from '../../components/ExperienceCard.astro';
+import PortfolioCard from '../../components/PortfolioCard.astro';
+import SkillChip from '../../components/SkillChip.astro';
+import Footer from '../../components/Footer.astro';
+import Particles from '../../components/Particles.astro';
+import {
+  loadProfile, loadSocials, loadSummary, loadExperiences,
+  loadPortfolio, loadSkills, loadEducation, loadI18n
+} from '../../data/load';
+import type { Lang } from '../../data/types';
+
+export const getStaticPaths = () => [
+  { params: { lang: 'id' } }, { params: { lang: 'en' } }
+];
+
+const lang = Astro.params.lang as Lang;
+const profile = loadProfile();
+const socials = loadSocials();
+const summary = loadSummary(lang);
+const experiences = loadExperiences(lang);
+const portfolio = loadPortfolio(lang);
+const skills = loadSkills(lang);
+const education = loadEducation(lang);
+const t = loadI18n(lang);
+---
+
+<Layout lang={lang} title={t.siteTitle} description={t.siteDescription} socials={socials} theme={t.theme}>
+  <Particles />
+  <Hero profile={profile} summary={summary} socials={socials} lang={lang} t={t.hero} />
+
+  <Section id="experience" prompt={t.experience.prompt} arg="experiences" title={t.sections.experience}>
+    <div class="grid gap-4">
+      {experiences.map((e: any, i: number) => (
+        <ExperienceCard item={e} index={i} t={{ stack: t.experience.stack }} />
+      ))}
+    </div>
+  </Section>
+
+  <Section id="portfolio" prompt={t.portfolio.prompt} arg="./portfolio" title={t.sections.portfolio}>
+    <div class="space-y-10">
+      {portfolio.map((cat: any) => (
+        <PortfolioCard category={cat} t={{ visit: t.portfolio.visit, pending: t.portfolio.pending }} />
+      ))}
+    </div>
+  </Section>
+
+  <Section id="skills" prompt={t.skills.prompt} arg="skills.json" title={t.sections.skills}>
+    <p class="muted text-sm mb-6">{skills.headline}</p>
+    <div class="space-y-7">
+      {skills.groups.map((g: any) => (
+        <div data-reveal>
+          <div class="text-xs uppercase tracking-wider muted mb-3">{g.label}</div>
+          <div class="flex flex-wrap gap-2">
+            {g.items.map((s: any) => (
+              <SkillChip name={s.name} icon={s.icon} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section id="education" prompt={t.education.prompt} arg="education.md" title={t.sections.education}>
+    <div data-reveal class="card p-5 max-w-2xl">
+      <div class="text-xs muted">{education.period}</div>
+      <h3 class="text-lg font-bold mt-1">{education.degree}</h3>
+      <p class="text-sm text-[var(--cyan)]">{education.institution}</p>
+      <p class="muted text-xs mt-1">{education.concentration} · {education.location}</p>
+    </div>
+  </Section>
+
+  <Footer lang={lang} socials={socials} t={t.footer} />
+</Layout>

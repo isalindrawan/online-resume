@@ -1,0 +1,14 @@
+---
+import type { Lang } from '../data/types';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const target: Lang = lang === 'id' ? 'en' : 'id';
+const href = `/${target}`;
+const label = lang === 'id' ? 'EN' : 'ID';
+---
+<a
+  href={href}
+  class="h-8 px-2 grid place-items-center rounded border border-[var(--border)] hover:border-[var(--accent)] text-[var(--muted)] hover:text-[var(--accent)] transition-colors text-xs font-bold"
+  title={lang === 'id' ? 'View in English' : 'Lihat dalam Bahasa Indonesia'}
+  aria-label={`Switch language to ${target}`}
+>{label}</a>

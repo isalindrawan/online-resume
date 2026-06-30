@@ -1,0 +1,46 @@
+[
+  {
+    "company": "PT. Smart IT Mantap Digital Indonesia",
+    "role": "Fullstack Web & Mobile Developer",
+    "period": "2023 — Present",
+    "location": "Surabaya",
+    "highlights": [
+      "Built and maintained 6 React Native Android apps, 3 Next.js PWAs, and contributed to 3 Laravel ERP systems.",
+      "Delivered end-to-end HR workflows including geolocation and face-biometric attendance, leave, reimbursement, loans, approvals, and analytics.",
+      "Turned Figma systems into responsive interfaces while improving API integration, state management, rendering, and release quality."
+    ],
+    "stack": ["React Native", "Next.js", "React", "Laravel", "MySQL", "REST API"]
+  },
+  {
+    "company": "PT. Kreator Solusi Informasi",
+    "role": "Software Engineer / Fullstack Web Developer",
+    "period": "2021 — 2023",
+    "location": "Surabaya",
+    "highlights": [
+      "Developed NVKen CRM with CodeIgniter 3, React, jQuery, REST APIs, and Microsoft SQL Server.",
+      "Built 2 native Android apps in Java for construction monitoring and sales activity.",
+      "Handled query optimization, testing, deployment support, debugging, and technical documentation."
+    ],
+    "stack": ["CodeIgniter", "PHP", "React", "jQuery", "SQL Server", "Java"]
+  },
+  {
+    "company": "Daun Palm Food & Beverages",
+    "role": "Web Developer · Internship",
+    "period": "2017 — 2018",
+    "location": "Surabaya",
+    "highlights": [
+      "Designed and built a CodeIgniter cafe management system with an integrated mobile-web POS and operational reporting."
+    ],
+    "stack": ["CodeIgniter", "PHP", "MySQL", "JavaScript"]
+  },
+  {
+    "company": "ITATS Programming Language Laboratory",
+    "role": "Laboratory Assistant",
+    "period": "2015 — 2017",
+    "location": "Surabaya",
+    "highlights": [
+      "Mentored C++ and Java students, authored practical modules, and supported the lab's development environment."
+    ],
+    "stack": ["C++", "Java"]
+  }
+]

@@ -1,0 +1,22 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Social } from '../data/types';
+interface Props { socials: Social[]; t: { socials: string } }
+const { socials, t } = Astro.props;
+---
+<div class="flex flex-wrap items-center gap-2">
+  <span class="muted text-xs uppercase tracking-wider mr-1">{t.socials}</span>
+  {socials.map((s) => (
+    <a
+      href={s.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="chip"
+      aria-label={s.label}
+      title={s.label}
+    >
+      <Icon name={s.icon} size={14} />
+      <span>{s.label}</span>
+    </a>
+  ))}
+</div>

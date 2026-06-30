@@ -1,0 +1,50 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { PortfolioCategory, Lang } from '../data/types';
+
+interface Props {
+  category: PortfolioCategory;
+  t: { visit: string; pending: string };
+}
+const { category, t } = Astro.props;
+
+const platformIcon = (title: string): string => {
+  const s = title.toLowerCase();
+  if (s.includes('google play')) return 'simple-icons:googleplay';
+  if (s.includes('website') || s.includes('visit') || s.includes('kunjungi')) return 'lucide:external-link';
+  if (s.includes('native') || s.includes('android')) return 'simple-icons:android';
+  if (s.includes('pwa') || s.includes('progressive')) return 'lucide:globe';
+  if (s.includes('web') || s.includes('aplikasi web')) return 'lucide:app-window';
+  return 'lucide:link';
+};
+---
+<div data-reveal>
+  <div class="flex items-center gap-2 mb-4">
+    <Icon name="lucide:folder" size={16} class="accent-text" />
+    <h3 class="text-lg font-bold">{category.category}</h3>
+    <span class="muted text-xs">({category.projects.length})</span>
+  </div>
+  <div class="grid sm:grid-cols-2 gap-3">
+    {category.projects.map((p) => (
+      <div class="card p-4 flex flex-col hover:border-[var(--accent)] transition-colors group">
+        <h4 class="font-bold text-sm group-hover:text-[var(--accent)] transition-colors">{p.title}</h4>
+        <p class="muted text-xs mt-1 leading-relaxed flex-1">{p.description}</p>
+        <div class="mt-3 flex flex-wrap gap-2">
+          {p.platform.map((pl) => (
+            pl.url ? (
+              <a href={pl.url} target="_blank" rel="noopener noreferrer" class="chip text-[11px]" aria-label={`${t.visit} ${p.title} — ${pl.title}`}>
+                <Icon name={platformIcon(pl.title)} size={12} />
+                <span>{pl.title}</span>
+              </a>
+            ) : (
+              <span class="chip text-[11px] opacity-70" title={pl.status || t.pending}>
+                <Icon name="lucide:clock" size={12} />
+                <span>{pl.status || t.pending}</span>
+              </span>
+            )
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

@@ -1,0 +1,177 @@
+[
+  {
+    "category": "React Native",
+    "projects": [
+      {
+        "title": "Kinerja",
+        "description": "Aplikasi HR cloud untuk absensi biometrik, pinjaman, reimbursement, cuti, persetujuan, dan analitik tenaga kerja.",
+        "platform": [
+          {
+            "title": "Google Play",
+            "url": "https://play.google.com/store/apps/details?id=app.kinerja.employee"
+          }
+        ]
+      },
+      {
+        "title": "Kinerja Admin",
+        "description": "Aplikasi operasional HR mobile untuk meninjau pengajuan karyawan dan mengelola persetujuan dari mana saja.",
+        "platform": [
+          {
+            "title": "Google Play",
+            "url": "https://play.google.com/store/apps/details?id=app.kinerja.employer"
+          }
+        ]
+      },
+      {
+        "title": "Bie Hin Circlo",
+        "description": "Pengalaman tailoring premium yang diterjemahkan dari Figma menjadi aplikasi intuitif untuk pengukuran, janji temu, pesanan, reward, dan pembayaran.",
+        "platform": [
+          {
+            "title": "React Native",
+            "url": null,
+            "status": "Pending submission"
+          }
+        ]
+      },
+      {
+        "title": "Lintas 7 Benua",
+        "description": "Aplikasi dealer FMCG yang mempermudah penemuan produk dan inquiry pelanggan untuk perusahaan perdagangan internasional.",
+        "platform": [
+          {
+            "title": "Google Play",
+            "url": "https://play.google.com/store/apps/details?id=com.l7be.dealer"
+          }
+        ]
+      },
+      {
+        "title": "Samando Dealers",
+        "description": "Aplikasi dealer untuk menelusuri mesin, spare part, dan peralatan pertanian/marine dari distributor terpercaya.",
+        "platform": [
+          {
+            "title": "Google Play",
+            "url": "https://play.google.com/store/apps/details?id=id.samando.dealers"
+          }
+        ]
+      },
+      {
+        "title": "Lookman Dajaja Driver",
+        "description": "Dua aplikasi driver ekspedisi yang mendukung pengiriman antarkota dan lokal melalui pemantauan trip, catatan perjalanan, dan tugas operasional.",
+        "platform": [
+          {
+            "title": "Aplikasi antarkota",
+            "url": "https://play.google.com/store/apps/details?id=net.lookmandjaja.driver.luar_kota"
+          },
+          {
+            "title": "Aplikasi lokal",
+            "url": "https://play.google.com/store/apps/details?id=net.lookmandjaja.driver.driver_dalam_kota"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Progressive Web Apps",
+    "projects": [
+      {
+        "title": "Anda Wellness",
+        "description": "PWA booking responsif yang mengubah desain Figma menjadi jalur mudah menuju perawatan spa dan home-call.",
+        "platform": [
+          {
+            "title": "Kunjungi website",
+            "url": "https://my.andawellness.co.id/home"
+          }
+        ]
+      },
+      {
+        "title": "Cek Mantap",
+        "description": "Alat inspeksi untuk checklist bangunan, audit standard operating procedure, dan pembuatan laporan.",
+        "platform": [
+          {
+            "title": "Progressive Web App",
+            "url": null
+          }
+        ]
+      },
+      {
+        "title": "Fieldmate",
+        "description": "Aplikasi tim lapangan yang dapat dipasang: absensi, jadwal, kunjungan pelanggan, pesanan, form kustom, dan cek stok.",
+        "platform": [
+          {
+            "title": "Kunjungi website",
+            "url": "https://web.fieldmate.id/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Native Android",
+    "projects": [
+      {
+        "title": "NVBuilt",
+        "description": "Aplikasi monitoring konstruksi untuk melacak pekerjaan dan progres pengembangan properti di lapangan.",
+        "platform": [
+          {
+            "title": "Native Android",
+            "url": null
+          }
+        ]
+      },
+      {
+        "title": "NVCRM",
+        "description": "Aplikasi sales untuk mencatat calon pembeli dan mendukung alur kerja marketing properti.",
+        "platform": [
+          {
+            "title": "Native Android",
+            "url": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Sistem Bisnis",
+    "projects": [
+      {
+        "title": "Ken CRM",
+        "description": "CRM property developer yang mengorganisir pelanggan, sales, dan proses operasional dalam satu sistem.",
+        "platform": [
+          {
+            "title": "Aplikasi Web",
+            "url": null
+          }
+        ]
+      },
+      {
+        "title": "Bintang Plasma",
+        "description": "Platform ERP untuk operasional harian distributor elektronik.",
+        "platform": [
+          {
+            "title": "Aplikasi Web",
+            "url": null
+          }
+        ]
+      },
+      {
+        "title": "Wahana Pest Control",
+        "description": "Sistem operasi layanan untuk mengkoordinir pekerjaan pelanggan dan proses pengiriman internal.",
+        "platform": [
+          {
+            "title": "Aplikasi Web",
+            "url": null
+          }
+        ]
+      },
+      {
+        "title": "Radz Exinterior",
+        "description": "Sistem ERP yang dirancang untuk kebutuhan operasional bisnis kontraktor.",
+        "platform": [
+          {
+            "title": "Aplikasi Web",
+            "url": null
+          }
+        ]
+      }
+    ]
+  }
+]

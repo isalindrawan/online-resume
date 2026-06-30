@@ -1,0 +1,54 @@
+{
+  "siteTitle": "Faisal Indrawan — Fullstack Developer",
+  "siteDescription": "Portfolio dan resume Faisal Indrawan: Fullstack Web & Mobile Developer.",
+  "nav": {
+    "hero": "beranda",
+    "experience": "pengalaman",
+    "portfolio": "portfolio",
+    "skills": "skills",
+    "education": "pendidikan"
+  },
+  "hero": {
+    "prompt": "whoami",
+    "available": "terbuka untuk peluang",
+    "cta": "lihat portfolio",
+    "scroll": "gulir",
+    "socials": "terhubung"
+  },
+  "sections": {
+    "experience": "pengalaman",
+    "portfolio": "portfolio",
+    "skills": "kemampuan teknis",
+    "education": "pendidikan"
+  },
+  "experience": {
+    "prompt": "cat experiences.log",
+    "stack": "stack"
+  },
+  "portfolio": {
+    "prompt": "ls ./portfolio",
+    "visit": "kunjungi",
+    "pending": "belum dirilis",
+    "count": "proyek"
+  },
+  "skills": {
+    "prompt": "cat skills.json"
+  },
+  "education": {
+    "prompt": "cat education.md"
+  },
+  "footer": {
+    "builtWith": "dibuat dengan Astro + Tailwind",
+    "back": "kembali ke atas",
+    "socials": "terhubung"
+  },
+  "theme": {
+    "toggle": "ganti tema",
+    "dark": "gelap",
+    "light": "terang"
+  },
+  "lang": {
+    "toggle": "EN",
+    "switchTo": "lihat dalam Bahasa Inggris"
+  }
+}
